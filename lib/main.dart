@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Appbar',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
       ),
       home: MyPage(),
     );
@@ -20,40 +21,32 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Snack Bar'),
+        title: Text('Toast message'),
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: MySnackBar(),
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            flutterToast();
+          },
+          child: Text('Toast'),
+          style: TextButton.styleFrom(
+              primary: Colors.white, backgroundColor: Colors.blue),
+        ),
+      ),
     );
   }
 }
 
-class MySnackBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                'Hello Word',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.teal,
-              duration: Duration(milliseconds: 1000),
-            ));
-          },
-          child: Text(
-            'show me',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.blue,
-          )),
-    );
-  }
+// Toast용 함수 생성
+void flutterToast() {
+  Fluttertoast.showToast(
+    msg: 'Flutter',
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.redAccent,
+    textColor: Colors.white,
+    fontSize: 20.0,
+    toastLength: Toast.LENGTH_SHORT,
+  );
 }
